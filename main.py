@@ -15,7 +15,6 @@ def count_char(input_string):
                 count[(ord(character)-97)]+=1
     return count
 
-
 def main():
     with open("books/frankenstein.txt") as f:
         file_contents=f.read()
@@ -24,7 +23,13 @@ def main():
         print("--- Begin report of books/frankenstein.txt ---")
         print(f"{words} words found in the document")
         new_dict={}
-        for i in range(0,len(count)):
-            print(f"The character '{chr(i+97)}' was found {count[i]} times")
+        for charac in range(0,len(count)):
+            if(chr(charac+97) in new_dict):
+                new_dict[chr(charac+97)]+=count[charac]
+            else:
+                new_dict[chr(charac+97)]=count[charac]
+        newer_dict=dict(sorted(new_dict.items(),reverse=True,key=lambda item:item[1]))
+        for key, value in newer_dict.items():
+            print(f"The character '{key}' was found {value} times")
         print("--- End Report ---")
 main()    
